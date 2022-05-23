@@ -6,6 +6,8 @@
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
+  "dir": "ltr",
+  "lang": "en-US",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",

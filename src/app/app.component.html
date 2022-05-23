@@ -1,19 +1,25 @@
 <mat-progress-bar
-  *ngIf="sharedService.executingLoader$ | async"
-  class="position-fixed top-0"
-  color="primary"
-  mode="indeterminate"
-  value="35"
-  role="progressbar"
-  aria-label="Login progressbar"
+	*ngIf="sharedService.executingLoader$ | async"
+	class="position-fixed top-0"
+	color="primary"
+	mode="indeterminate"
+	role="progressbar"
+	aria-label="Login progressbar"
 >
 </mat-progress-bar>
 
 <app-toolbar (userOutputEvent)="searchedUser($event)"></app-toolbar>
-<div class="row justify-content-center align-items-center gap-2 my-4">
-  <app-card [user$]="user$"></app-card>
+<div
+	class="d-flex flex-row-reverse justify-content-center align-items-stretch gap-2 p-4"
+>
+	<app-card
+		class="col-6 d-flex justify-content-center align-items-center"
+		[user$]="user$"
+	></app-card>
 
-  <mat-divider class="w-50"></mat-divider>
+	<mat-divider class="col-1" [vertical]="true" class="w-50"></mat-divider>
+
+	<div class="col-6">
+		<router-outlet></router-outlet>
+	</div>
 </div>
-
-<router-outlet></router-outlet>

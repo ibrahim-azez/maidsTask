@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --hmr",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -32,6 +32,7 @@
     "boring-avatars": "^1.6.3",
     "compression": "^1.7.4",
     "express": "^4.15.2",
+    "memo-decorator": "^2.0.1",
     "memoizee": "^0.4.15",
     "ngx-gravatar": "^13.0.0",
     "rxjs": "~7.5.0",

@@ -7,53 +7,57 @@ import { IUserCard } from '../interfaces/user-card';
 import { IUsersList } from '../interfaces/users-list';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class UserService {
-  private readonly BACKEND_ENDPOINT = 'https://reqres.in/api';
-  private readonly PAGES_ROUTE = 'users?page=';
-  private readonly USER_ROUTE = 'users';
-  private userCache$: Observable<IUserCard> | null = null;
-  private usersListCache$: Observable<IUsersList> | null = null;
+	private readonly BACKEND_ENDPOINT = 'https://reqres.in/api';
+	private readonly PAGES_ROUTE = 'users?page=';
+	private readonly USER_ROUTE = 'users';
+	private userCache$!: Observable<IUserCard>;
+	private usersListCache$!: Observable<IUsersList>;
 
-  constructor(
-    private readonly http: HttpClient,
-    private sharedService: SharedService
-  ) {}
+	constructor(
+		private readonly http: HttpClient,
+		private sharedService: SharedService
+	) {}
 
-  getUser(userId?: string): Observable<IUserCard> {
-    return this.http
-      .get(`${this.BACKEND_ENDPOINT}/${this.USER_ROUTE}/${userId ?? '1'}`)
-      .pipe(
-        shareReplay(1),
-        catchError(() => {
-          this.sharedService.executingLoader$.next(false);
-          return EMPTY;
-        }),
-        map((res) => {
-          this.sharedService.executingLoader$.next(false);
-          return res;
-        })
-      ) as Observable<IUserCard>;
+	getUser(userId?: string): Observable<IUserCard> {
+		// if (!this.userCache$)
+		return this.http
+			.get<IUserCard>(
+				`${this.BACKEND_ENDPOINT}/${this.USER_ROUTE}/${userId ?? '1'}`
+			)
+			.pipe(
+				shareReplay(1),
+				catchError(() => {
+					this.sharedService.executingLoader$.next(false);
+					return EMPTY;
+				}),
+				map((res) => {
+					this.sharedService.executingLoader$.next(false);
+					return res;
+				})
+			) as Observable<IUserCard>;
 
-    // return this.userCache$;
-  }
+		// return this.userCache$;
+	}
 
-  getUsersList(pageNumber?: string): Observable<IUsersList> {
-    return this.http
-      .get(`${this.BACKEND_ENDPOINT}/${this.PAGES_ROUTE}${pageNumber ?? '1'}`)
-      .pipe(
-        shareReplay(1),
-        catchError(() => {
-          this.sharedService.executingLoader$.next(false);
-          return EMPTY;
-        }),
-        map((res) => {
-          this.sharedService.executingLoader$.next(false);
-          return res;
-        })
-      ) as Observable<IUsersList>;
-
-    // return this.usersListCache$;
-  }
+	getUsersList(pageNumber?: string): Observable<IUsersList> {
+		// if (!this.usersListCache$)
+		return this.http
+			.get<IUsersList>(
+				`${this.BACKEND_ENDPOINT}/${this.PAGES_ROUTE}${pageNumber}`
+			)
+			.pipe(
+				catchError(() => {
+					this.sharedService.executingLoader$.next(false);
+					return EMPTY;
+				}),
+				map((res) => {
+					this.sharedService.executingLoader$.next(false);
+					return res;
+				})
+			) as Observable<IUsersList>;
+		// return this.usersListCache$;
+	}
 }

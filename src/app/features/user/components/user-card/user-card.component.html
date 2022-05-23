@@ -1,23 +1,30 @@
 <div class="container-fluid">
-  <div class="row justify-content-between align-items-center gap-2">
-    <mat-icon
-      class="col-2"
-      (click)="goBack()"
-      aria-hidden="false"
-      aria-label="Back to previous page"
-      >arrow_back_ios</mat-icon
-    >
-    <div class="col-10" *ngIf="userCard$ | async as user">
-      <mat-card class="row justify-content-center align-items-center">
-        <mat-card-title-group>
-          <mat-card-title
-            >{{ user.first_name }} {{ user.last_name }}</mat-card-title
-          >
-          <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
-          <img mat-card-sm-image [src]="user.avatar" />
-        </mat-card-title-group>
-        <!-- <mat-card-content> </mat-card-content> -->
-      </mat-card>
-    </div>
-  </div>
+	<div class="row flex-column justify-content-evenly align-items-center gap-2">
+		<button
+			class="col-1 d-flex justify-content-around align-items-center"
+			mat-fab
+			(click)="goBack()"
+			aria-label=" button with an arrow icon"
+		>
+			<mat-icon
+				class="d-flex justify-content-center align-items-center"
+				aria-hidden="false"
+				aria-label="Back to previous page"
+				>arrow_back_ios</mat-icon
+			>
+		</button>
+
+		<div class="col-11" *ngIf="userCard$ | async as user">
+			<mat-card class="row justify-content-center align-items-center">
+				<mat-card-title-group>
+					<mat-card-title
+						>{{ user.first_name }} {{ user.last_name }}</mat-card-title
+					>
+					<mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+					<img mat-card-sm-image [src]="user.avatar" />
+				</mat-card-title-group>
+				<!-- <mat-card-content> </mat-card-content> -->
+			</mat-card>
+		</div>
+	</div>
 </div>
