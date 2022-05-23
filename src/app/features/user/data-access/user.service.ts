@@ -23,12 +23,17 @@ export class UserService {
 
 	getUser(userId?: string): Observable<IUserCard> {
 		// if (!this.userCache$)
+		return this.requestUserWithId(userId ?? '1').pipe(shareReplay(1));
+
+		// return this.userCache$;
+	}
+
+	requestUserWithId(userId: string) {
 		return this.http
 			.get<IUserCard>(
 				`${this.BACKEND_ENDPOINT}/${this.USER_ROUTE}/${userId ?? '1'}`
 			)
 			.pipe(
-				shareReplay(1),
 				catchError(() => {
 					this.sharedService.executingLoader$.next(false);
 					return EMPTY;
@@ -38,8 +43,6 @@ export class UserService {
 					return res;
 				})
 			) as Observable<IUserCard>;
-
-		// return this.userCache$;
 	}
 
 	getUsersList(pageNumber?: string): Observable<IUsersList> {

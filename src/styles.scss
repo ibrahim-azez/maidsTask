@@ -2,11 +2,11 @@
 
 html,
 body {
-  height: 100%;
+	height: 100%;
 }
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: clamp(105%, calc(100% + 0.5vw), 150%);
-  margin: 0;
-  color: currentColor;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-size: clamp(105%, calc(100% + 0.5vw), 150%);
+	margin: 0;
+	color: currentColor;
 }
