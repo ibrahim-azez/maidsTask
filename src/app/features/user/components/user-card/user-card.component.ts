@@ -7,34 +7,34 @@ import { UserService } from '../../data-access/user.service';
 import { IUser } from '../../interfaces/user';
 
 @Component({
-  selector: 'app-user-card',
-  templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-user-card',
+	templateUrl: './user-card.component.html',
+	styleUrls: ['./user-card.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCardComponent implements OnInit {
-  userCard$ = new ReplaySubject<IUser>().asObservable();
-  userId = this.activatedRoute.params;
+	userCard$ = new ReplaySubject<IUser>().asObservable();
+	userId = this.activatedRoute.params;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private userService: UserService,
-    private location: Location
-  ) {}
+	constructor(
+		private activatedRoute: ActivatedRoute,
+		private userService: UserService,
+		private location: Location
+	) {}
 
-  ngOnInit(): void {
-    this.userCard$ = this.userId.pipe(
-      switchMap(({ id }) => {
-        return this.userService.getUser(id?.toString()).pipe(
-          map(({ data }) => {
-            return { ...data };
-          })
-        );
-      })
-    );
-  }
+	ngOnInit(): void {
+		this.userCard$ = this.userId.pipe(
+			switchMap(({ id }) => {
+				return this.userService.getUser(id).pipe(
+					map(({ data }) => {
+						return { ...data };
+					})
+				);
+			})
+		);
+	}
 
-  goBack() {
-    this.location.back();
-  }
+	goBack() {
+		this.location.back();
+	}
 }

@@ -10,11 +10,11 @@ import { IUsersList } from '../interfaces/users-list';
 	providedIn: 'root',
 })
 export class UserService {
-	private readonly BACKEND_ENDPOINT = 'https://reqres.in/api';
-	private readonly PAGES_ROUTE = 'users?page=';
-	private readonly USER_ROUTE = 'users';
-	private userCache$!: Observable<IUserCard>;
-	private usersListCache$!: Observable<IUsersList>;
+	private readonly BACKEND_BASE_ENDPOINT = 'https://reqres.in/api';
+	private readonly PAGES_ROUTE_QUERY = 'users?page';
+	private readonly USER_ROUTE_PARAMS = 'users';
+	// private userCache$!: Observable<IUserCard>;
+	// private usersListCache$!: Observable<IUsersList>;
 
 	constructor(
 		private readonly http: HttpClient,
@@ -23,15 +23,11 @@ export class UserService {
 
 	getUser(userId?: string): Observable<IUserCard> {
 		// if (!this.userCache$)
-		return this.requestUserWithId(userId ?? '1').pipe(shareReplay(1));
-
-		// return this.userCache$;
-	}
-
-	requestUserWithId(userId: string) {
 		return this.http
 			.get<IUserCard>(
-				`${this.BACKEND_ENDPOINT}/${this.USER_ROUTE}/${userId ?? '1'}`
+				`${this.BACKEND_BASE_ENDPOINT}/${this.USER_ROUTE_PARAMS}/${
+					userId ?? '1'
+				}`
 			)
 			.pipe(
 				catchError(() => {
@@ -43,13 +39,17 @@ export class UserService {
 					return res;
 				})
 			) as Observable<IUserCard>;
+
+		// return this.userCache$;
 	}
 
 	getUsersList(pageNumber?: string): Observable<IUsersList> {
 		// if (!this.usersListCache$)
 		return this.http
 			.get<IUsersList>(
-				`${this.BACKEND_ENDPOINT}/${this.PAGES_ROUTE}${pageNumber}`
+				`${this.BACKEND_BASE_ENDPOINT}/${this.PAGES_ROUTE_QUERY}=${
+					pageNumber ?? '1'
+				}`
 			)
 			.pipe(
 				catchError(() => {

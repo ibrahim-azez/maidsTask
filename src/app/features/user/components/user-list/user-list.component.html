@@ -3,6 +3,7 @@
 	class="row flex-column justify-content-center align-items-stretch gap-2"
 >
 	<mat-nav-list
+		(click)="$event.stopPropagation()"
 		class="col-12 d-flex flex-column justify-content-center align-items-center gap-3"
 	>
 		<mat-list-item
