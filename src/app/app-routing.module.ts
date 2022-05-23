@@ -3,10 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'user/:id',
+    path: '',
+    // canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./features/home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: 'user',
     // canActivate: [AuthGuard],
     loadChildren: () =>
       import('./features/user/user.module').then((m) => m.UserModule),
+  },
+  {
+    path: '*',
+    redirectTo: '',
   },
 ];
 

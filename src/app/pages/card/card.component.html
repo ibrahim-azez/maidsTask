@@ -1,0 +1,20 @@
+<div class="container" *ngIf="user$ | async as user">
+  <div class="row justify-content-center align-items-center">
+    <div
+      matRipple
+      class="col-9 row flex-column justify-content-center align-items-center gap-2"
+    >
+      <img
+        style="border-radius: 50%"
+        class="col-6 d-flex justify-content-center align-items-center"
+        [src]="user.avatar"
+        alt="avatar"
+      />
+      <h1 class="col-6 text-center h1 fs-3">
+        {{ user.first_name }} {{ user.last_name }}
+      </h1>
+    </div>
+  </div>
+</div>
+
+<!-- <identicon-svg username="alienHead66"></identicon-svg> -->

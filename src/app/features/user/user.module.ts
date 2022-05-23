@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { AngularMaterialModule } from '../../core/angular-material.module';
 
 const routes: Routes = [
   {
-    path: 'user/:id',
+    path: ':id',
     // canActivate: [AuthGuard],
     loadChildren: () =>
       import('./components/user-card/user-card.module').then(
@@ -15,6 +16,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, RouterModule.forChild(routes), AngularMaterialModule],
 })
 export class UserModule {}

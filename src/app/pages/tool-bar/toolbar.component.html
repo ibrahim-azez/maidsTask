@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row gap-4">
+    <mat-toolbar class="d-flex justify-content-around align-items-center">
+      <h1 class="col-3 text-left">Ibrahim Azez</h1>
+
+      <div class="col-6">
+        <div class="row justify-content-center align-items-stretch">
+          <mat-form-field appearance="standard">
+            <!-- <mat-label>Search</mat-label> -->
+
+            <input
+              matInput
+              placeholder="Search"
+              type="search"
+              (input)="searchForUser($any($event).target.value)"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-toolbar>
+  </div>
+</div>

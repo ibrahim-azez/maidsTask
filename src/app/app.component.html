@@ -1,12 +1,19 @@
-<div class="container-fluid">
-  <mat-toolbar class="d-flex justify-content-around align-items-center">
-    <h1 class="col-3 text-left">Ibrahim Azez</h1>
-    <form class="col-9 d-flex justify-content-center align-items-stretch">
-      <mat-form-field appearance="standard">
-        <!-- <mat-label>Search</mat-label> -->
-        <input matInput placeholder="Search" type="search" />
-      </mat-form-field>
-    </form>
-  </mat-toolbar>
+<mat-progress-bar
+  *ngIf="sharedService.executingLoader$ | async"
+  class="position-fixed top-0"
+  color="primary"
+  mode="indeterminate"
+  value="35"
+  role="progressbar"
+  aria-label="Login progressbar"
+>
+</mat-progress-bar>
+
+<app-toolbar (userOutputEvent)="searchedUser($event)"></app-toolbar>
+<div class="row justify-content-center align-items-center gap-2 my-4">
+  <app-card [user$]="user$"></app-card>
+
+  <mat-divider class="w-50"></mat-divider>
 </div>
+
 <router-outlet></router-outlet>
