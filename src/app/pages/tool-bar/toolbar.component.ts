@@ -3,14 +3,14 @@ import {
 	OnInit,
 	ChangeDetectionStrategy,
 	EventEmitter,
-	Output,
+	Output
 } from '@angular/core';
+import { Subject, switchMap, Observable } from 'rxjs';
 import { SharedService } from '@core/data-access/services/shared.service';
-import { Subject, switchMap, Observable, EMPTY } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { UserService } from '../../features/user/data-access/user.service';
-import { IUser } from '../../features/user/interfaces/user';
-import { IUserCard } from '../../features/user/interfaces/user-card';
+import { UnsubscribeOnDestroyAdapter } from '@core/unsubscribe-on-destroy.adapter';
+import { UserService } from '@features/user/data-access/user.service';
+import { IUser } from '@features/user/interfaces/user';
+import { IUserCard } from '@features/user/interfaces/user-card';
 
 @Component({
 	selector: 'app-toolbar',
@@ -18,7 +18,10 @@ import { IUserCard } from '../../features/user/interfaces/user-card';
 	styleUrls: ['./toolbar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent
+	extends UnsubscribeOnDestroyAdapter
+	implements OnInit
+{
 	@Output() userOutputEvent = new EventEmitter<IUser>();
 	userOutput$!: Observable<IUserCard>;
 	userInput$ = new Subject<string>();
@@ -26,7 +29,10 @@ export class ToolbarComponent implements OnInit {
 	constructor(
 		private userService: UserService,
 		private sharedService: SharedService
-	) {}
+	) {
+		super();
+	}
+
 
 	ngOnInit(): void {
 		this.userOutput$ = this.userInput$.pipe(
@@ -36,7 +42,7 @@ export class ToolbarComponent implements OnInit {
 			})
 		);
 
-		this.userOutput$.subscribe({
+		this.subs.sink = this.userOutput$.subscribe({
 			next: ({ data }) => {
 				this.userOutputEvent.emit({ ...data } as IUser);
 			},

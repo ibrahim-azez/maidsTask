@@ -1,11 +1,6 @@
-import {
-	Component,
-	OnInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-} from '@angular/core';
-import { CardComponent } from '@pages/card/card.component';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
+
 import { SharedService } from './core/data-access/services/shared.service';
 import { IUser } from './features/user/interfaces/user';
 
@@ -19,15 +14,10 @@ export class AppComponent implements OnInit {
 	user$ = new Subject<IUser>();
 	executingLoader$!: BehaviorSubject<boolean>;
 
-	constructor(
-		public sharedService: SharedService,
-		private cdref: ChangeDetectorRef
-	) {}
+	constructor(public sharedService: SharedService) {}
 
 	ngOnInit(): void {
 		this.executingLoader$ = this.sharedService.executingLoader$;
-		// ɵmarkDirty(AppComponent);
-		this.cdref.detectChanges();
 	}
 
 	searchedUser(user: IUser): void {

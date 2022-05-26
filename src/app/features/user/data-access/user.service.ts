@@ -33,8 +33,6 @@ export class UserService {
 				}),
 				tap((res) => {
 					this.sharedService.executingLoader$.next(false);
-
-					return res;
 				})
 			) as Observable<IUserCard>;
 	}

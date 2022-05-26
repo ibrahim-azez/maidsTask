@@ -8,18 +8,23 @@
 >
 </mat-progress-bar>
 
-<app-toolbar (userOutputEvent)="searchedUser($event)"></app-toolbar>
-<div
-	class="d-flex flex-row-reverse justify-content-center align-items-stretch gap-2 p-4"
->
-	<app-card
-		class="col-6 d-flex justify-content-center align-items-center"
-		[user$]="user$"
-	></app-card>
+<div class="row justify-content-center align-content-center gap-2">
+	<app-toolbar
+		class="col-12"
+		(userOutputEvent)="searchedUser($event)"
+	></app-toolbar>
+	<div
+		class="col-12 d-flex flex-row-reverse justify-content-center align-items-stretch gap-2 p-4"
+	>
+		<app-card
+			class="col-6 d-flex justify-content-center align-items-center"
+			[user$]="user$"
+		></app-card>
 
-	<mat-divider class="col-1" [vertical]="true" class="w-50"></mat-divider>
+		<mat-divider class="col-1" [vertical]="true" class="w-50"></mat-divider>
 
-	<div class="col-6">
-		<router-outlet></router-outlet>
+		<div class="col-6">
+			<router-outlet></router-outlet>
+		</div>
 	</div>
 </div>

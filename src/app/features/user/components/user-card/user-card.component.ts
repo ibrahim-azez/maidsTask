@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ReplaySubject, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { UserService } from '../../data-access/user.service';
 import { IUser } from '../../interfaces/user';
 
@@ -34,7 +35,7 @@ export class UserCardComponent implements OnInit {
 		);
 	}
 
-	goBack() {
+	goBack(): void {
 		this.location.back();
 	}
 }
