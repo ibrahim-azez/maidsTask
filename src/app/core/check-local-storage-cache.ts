@@ -16,7 +16,7 @@ export function CheckLocalStorageCache(localStorageCacheKey: string) {
 			const cacheKey = localStorageCacheKey + args?.slice(0, 1).pop() ?? '';
 			return localStorageService.getItem(cacheKey).pipe(
 				switchMap((value) => {
-					if (!value || args.slice(1, 2).pop()) {
+					if (!value || args?.slice(1, 2).pop()) {
 						const result = originalMethod.apply(this, args).pipe(
 							tap((res) => {
 								localStorageService.setItem(cacheKey, JSON.stringify(res));
