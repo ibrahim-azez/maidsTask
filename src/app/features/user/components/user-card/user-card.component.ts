@@ -25,7 +25,7 @@ export class UserCardComponent implements OnInit {
 	ngOnInit(): void {
 		this.userCard$ = this.userId.pipe(
 			switchMap(({ id }) => {
-				return this.userService.getUser(id).pipe(
+				return this.userService.getUserById(id, true).pipe(
 					map(({ data }) => {
 						return { ...data };
 					})

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 @Injectable({
 	providedIn: 'root',
 })
-export class MyStorageEngineService  {
+export class LocalStorageService {
 	get length(): number {
 		return localStorage.length;
 	}
